@@ -17,35 +17,34 @@ module.exports = function(grunt) {
         },
 
         // clean
-        clean: ['**/build'],
+        clean: { folder : ['./build']},
 
         'string-replace': {
-            inline: {
-                files: {
-                    'build/': 'index.html'
-                },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: './build',
+                    src: '*.html',
+                    dest: './build'
+                }],
                 options: {
                     replacements: [
                         {
-                            pattern: '<script src="offline/p5-0.5.4.js"></script>',
-                            replacement: '<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.min.js></script>"'
-                        },
-                        {
                             pattern: '<script src="offline/jquery-3.1.1.js"></script>',
-                            replacement: '<script src="<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>"></script>'
+                            replacement: '<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>'
                         },
                         {
                             pattern: '<script src="offline/bootstrap-3.3.7.js"></script>',
-                            replacement: '<script src="<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>"></script>'
+                            replacement: '<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>'
                         },
                         {
                             pattern: '<link rel="stylesheet" type="text/css" href="offline/bootstrap-3.3.7.css">',
-                            replacement: '<link rel="stylesheet" type="text/css" href="<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">">'
-                        }
-                        // {
-                        //     pattern: '',
-                        //     replacement: ''
-                        // },
+                            replacement: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">'
+                        },
+                        {
+                            pattern: 'offline/p5-0.5.4.js',
+                            replacement: 'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.js'
+                        },
                         // {
                         //     pattern: '',
                         //     replacement: ''
@@ -65,7 +64,7 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: './build/',
-                    src: '**/js/*.js',
+                    src: ['**/js/*.js', '**/lessons/*.js'],
                     dest: './build/'
                 }]
             },
@@ -80,7 +79,7 @@ module.exports = function(grunt) {
             },
             build: {
                 expand: true,
-                src: './build/js/*.js',
+                src: ['./build/js/*.js', './build/lessons/*.js'],
                 dest: ''
             }
         },
@@ -111,8 +110,6 @@ module.exports = function(grunt) {
         htmlmin: {
             dev: {
                 options: {
-                    removeEmptyAttributes: true,
-                    removeEmptyElements: true,
                     removeRedundantAttributes: true,
                     removeComments: true,
                     removeOptionalTags: true,
@@ -143,5 +140,4 @@ module.exports = function(grunt) {
     grunt.registerTask('js-hint', ['jshint']);
     grunt.registerTask('html-hint', ['htmlhint']);
     grunt.registerTask('build', ['clean', 'copy', 'string-replace', 'babel', 'uglify', 'htmlmin']);
-
 };

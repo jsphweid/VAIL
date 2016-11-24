@@ -1,0 +1,7 @@
+<!DOCTYPE html><body><script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script><script type="text/javascript">// get the filename from url
+		var sketchFile = location.href.split('?')[1].split('&');
+
+		// load the sketch and then p5js it
+		$.getScript('lessons/' + sketchFile, function() {
+			$.getScript('https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.js');
+		})</script>
