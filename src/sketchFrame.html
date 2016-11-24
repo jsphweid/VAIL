@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+</head>
+<body>
+
+	<script src="offline/jquery-3.1.1.js"></script> 
+
+	<script type="text/javascript">
+
+		// get the filename from url
+		var sketchFile = location.href.split('?')[1].split('&');
+
+		// load the sketch and then p5js it
+		$.getScript('lessons/' + sketchFile, function() {
+			$.getScript('offline/p5-0.5.4.js');
+		})
+
+	</script>
+
+</body>
+</html>
+
