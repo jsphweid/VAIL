@@ -12,9 +12,7 @@ The sketches are written in [P5js](p5js.org) / Javascript. Each sketch resides i
 
 `npm start` to serve up the app
 
-`grunt js-hint` to jshint on '/js' files and `grunt html-hint` to root html files (index.html)
-
-`grunt build` to make production build to '/build' folder
+`npm run build` to make production build to '/build' folder
 
 ### TODO
  - abstract common sketch building functions (draw grid? forward / backward button)
